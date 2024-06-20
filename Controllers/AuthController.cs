@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using MovieDatabase.Models;
-using MovieDatabase.Services;
+using ScreenVault.Models;
+using ScreenVault.Services;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Text;
 using BCrypt.Net;
 using Microsoft.Extensions.Configuration;
 
-namespace MovieDatabase.Controllers
+namespace ScreenVault.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

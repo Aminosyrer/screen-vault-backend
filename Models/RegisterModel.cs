@@ -1,4 +1,4 @@
-namespace MovieDatabase.Models
+namespace ScreenVault.Models
 {
     public class RegisterModel
     {

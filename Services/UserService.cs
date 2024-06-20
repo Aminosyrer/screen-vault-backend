@@ -1,9 +1,9 @@
 using MongoDB.Driver;
-using MovieDatabase.Models;
+using ScreenVault.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MovieDatabase.Services
+namespace ScreenVault.Services
 {
     public class UserService
     {

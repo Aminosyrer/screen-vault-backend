@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MovieDatabase.Models;
-using MovieDatabase.Services;
+using ScreenVault.Models;
+using ScreenVault.Services;
 using System.Collections.Generic;
 
-namespace MovieDatabase.Controllers
+namespace ScreenVault.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
