@@ -21,7 +21,12 @@ namespace ScreenVault.Controllers
         public ActionResult<List<Movie>> Get([FromQuery] int page = 1, [FromQuery] int limit = 10)
         {
             var movies = _movieService.GetPaginated(page, limit);
-            return Ok(movies);
+            return Ok(new
+            {
+                page,
+                limit,
+                results = movies
+            });
         }
 
         [HttpGet("{id}", Name = "GetMovie")]
