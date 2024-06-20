@@ -37,5 +37,13 @@ namespace ScreenVault.Services
             var lastMovie = await _movies.Find(movie => true).Sort(sort).Limit(1).FirstOrDefaultAsync();
             return lastMovie != null ? lastMovie.Id + 1 : 1;
         }
+
+        public List<Movie> GetPaginated(int page, int pageSize)
+        {
+            return _movies.Find(movie => true)
+                          .Skip((page - 1) * pageSize)
+                          .Limit(pageSize)
+                          .ToList();
+        }
     }
 }
