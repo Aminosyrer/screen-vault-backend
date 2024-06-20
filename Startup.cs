@@ -21,8 +21,8 @@ public class Startup
     {
         services.Configure<MongoDBSettings>(options =>
         {
-            options.ConnectionString = Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING");
-            options.DatabaseName = Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME");
+            options.ConnectionString = Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING") ?? string.Empty;
+            options.DatabaseName = Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME") ?? string.Empty;
         });
 
         services.AddSingleton<IMongoDBSettings>(sp =>
@@ -49,7 +49,7 @@ public class Startup
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
                 ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY") ?? ""))
             };
         });
 

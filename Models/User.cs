@@ -1,24 +1,24 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 
 namespace MovieDatabase.Models
 {
     public class User
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        [BsonElement("id")]
+        public int Id { get; set; }
 
         [BsonElement("username")]
-        public string Username { get; set; }
+        public required string Username { get; set; }
 
         [BsonElement("email")]
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         [BsonElement("password")]
-        public string Password { get; set; }
+        public required string Password { get; set; }
 
         [BsonElement("roles")]
-        public List<string> Roles { get; set; }
+        public required List<string> Roles { get; set; }
     }
 }

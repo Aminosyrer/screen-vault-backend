@@ -57,7 +57,7 @@ namespace MovieDatabase.Controllers
                 Roles = new System.Collections.Generic.List<string> { "user" }
             };
 
-            _userService.Create(user);
+            _ = _userService.Create(user);
 
             return Ok(new { Message = "User registered successfully!" });
         }
@@ -75,11 +75,11 @@ namespace MovieDatabase.Controllers
 
             var claims = new[]
             {
-        new Claim(JwtRegisteredClaimNames.Sub, user.Username),
-        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-        new Claim(ClaimTypes.NameIdentifier, user.Id),
-        new Claim(ClaimTypes.Role, user.Roles.FirstOrDefault())
-    };
+                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Role, user.Roles.FirstOrDefault() ?? string.Empty)
+            };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -93,6 +93,5 @@ namespace MovieDatabase.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
     }
 }

@@ -1,7 +1,7 @@
 using MongoDB.Driver;
 using MovieDatabase.Models;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace MovieDatabase.Services
 {
@@ -18,18 +18,24 @@ namespace MovieDatabase.Services
 
         public List<Movie> Get() => _movies.Find(movie => true).ToList();
 
-        public Movie Get(string id) => _movies.Find<Movie>(movie => movie.Id == id).FirstOrDefault();
+        public Movie Get(int id) => _movies.Find<Movie>(movie => movie.Id == id).FirstOrDefault();
 
-        public Movie Create(Movie movie)
+        public async Task<Movie> Create(Movie movie)
         {
-            _movies.InsertOne(movie);
+            movie.Id = await GetNextSequenceValue();
+            await _movies.InsertOneAsync(movie);
             return movie;
         }
 
-        public void Update(string id, Movie movieIn) => _movies.ReplaceOne(movie => movie.Id == id, movieIn);
+        public void Update(int id, Movie movieIn) => _movies.ReplaceOne(movie => movie.Id == id, movieIn);
 
-        public void Remove(Movie movieIn) => _movies.DeleteOne(movie => movie.Id == movieIn.Id);
+        public void Remove(int id) => _movies.DeleteOne(movie => movie.Id == id);
 
-        public void Remove(string id) => _movies.DeleteOne(movie => movie.Id == id);
+        private async Task<int> GetNextSequenceValue()
+        {
+            var sort = Builders<Movie>.Sort.Descending(m => m.Id);
+            var lastMovie = await _movies.Find(movie => true).Sort(sort).Limit(1).FirstOrDefaultAsync();
+            return lastMovie != null ? lastMovie.Id + 1 : 1;
+        }
     }
 }

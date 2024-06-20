@@ -6,38 +6,37 @@ namespace MovieDatabase.Models
 {
     public class Movie
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        [BsonElement("id")]
+        public int Id { get; set; }
 
         [BsonElement("title")]
-        public string Title { get; set; }
+        public required string Title { get; set; }
 
         [BsonElement("description")]
-        public string Description { get; set; }
+        public required string Description { get; set; }
 
         [BsonElement("release_year")]
         public int ReleaseYear { get; set; }
 
         [BsonElement("genres")]
-        public List<string> Genres { get; set; }
+        public required List<string> Genres { get; set; }
 
         [BsonElement("cast")]
-        public List<CastMember> Cast { get; set; }
+        public required List<CastMember> Cast { get; set; }
 
         [BsonElement("poster_url")]
-        public string PosterUrl { get; set; }
+        public string? PosterUrl { get; set; }
 
         [BsonElement("trailer_url")]
-        public string TrailerUrl { get; set; }
+        public string? TrailerUrl { get; set; }
     }
 
     public class CastMember
     {
         [BsonElement("actor_name")]
-        public string ActorName { get; set; }
+        public required string ActorName { get; set; }
 
         [BsonElement("character_name")]
-        public string CharacterName { get; set; }
+        public required string CharacterName { get; set; }
     }
 }

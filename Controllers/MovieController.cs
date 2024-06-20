@@ -20,8 +20,8 @@ namespace MovieDatabase.Controllers
         [HttpGet]
         public ActionResult<List<Movie>> Get() => _movieService.Get();
 
-        [HttpGet("{id:length(24)}", Name = "GetMovie")]
-        public ActionResult<Movie> Get(string id)
+        [HttpGet("{id}", Name = "GetMovie")]
+        public ActionResult<Movie> Get(int id)
         {
             var movie = _movieService.Get(id);
 
@@ -37,13 +37,13 @@ namespace MovieDatabase.Controllers
         [HttpPost]
         public ActionResult<Movie> Create(Movie movie)
         {
-            _movieService.Create(movie);
-            return CreatedAtRoute("GetMovie", new { id = movie.Id.ToString() }, movie);
+            _ = _movieService.Create(movie);
+            return CreatedAtRoute("GetMovie", new { id = movie.Id }, movie);
         }
 
         [Authorize(Roles = "admin")]
-        [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, Movie movieIn)
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, Movie movieIn)
         {
             var movie = _movieService.Get(id);
 
@@ -58,8 +58,8 @@ namespace MovieDatabase.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        [HttpDelete("{id:length(24)}")]
-        public IActionResult Delete(string id)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
             var movie = _movieService.Get(id);
 
@@ -68,7 +68,7 @@ namespace MovieDatabase.Controllers
                 return NotFound();
             }
 
-            _movieService.Remove(movie.Id);
+            _movieService.Remove(id);
 
             return NoContent();
         }
