@@ -19,10 +19,10 @@ namespace ScreenVault.Models
         public int ReleaseYear { get; set; }
 
         [BsonElement("genres")]
-        public required List<string> Genres { get; set; }
+        public List<string>? Genres { get; set; }
 
         [BsonElement("cast")]
-        public required List<CastMember> Cast { get; set; }
+        public List<CastMember>? Cast { get; set; }
 
         [BsonElement("poster_url")]
         public string? PosterUrl { get; set; }
