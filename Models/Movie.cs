@@ -34,9 +34,9 @@ namespace ScreenVault.Models
     public class CastMember
     {
         [BsonElement("actor_name")]
-        public required string ActorName { get; set; }
+        public string? ActorName { get; set; }
 
         [BsonElement("character_name")]
-        public required string CharacterName { get; set; }
+        public string? CharacterName { get; set; }
     }
 }
