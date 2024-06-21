@@ -38,9 +38,15 @@ namespace ScreenVault.Services
             return lastMovie != null ? lastMovie.Id + 1 : 1;
         }
 
-        public List<Movie> GetPaginated(int page, int pageSize)
+        public List<Movie> GetPaginated(int page, int pageSize, string genre = null)
         {
-            return _movies.Find(movie => true)
+            var filter = Builders<Movie>.Filter.Empty;
+            if (!string.IsNullOrEmpty(genre))
+            {
+                filter = Builders<Movie>.Filter.AnyEq(m => m.Genres, genre);
+            }
+
+            return _movies.Find(filter)
                           .Skip((page - 1) * pageSize)
                           .Limit(pageSize)
                           .ToList();
